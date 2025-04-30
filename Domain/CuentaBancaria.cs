@@ -85,7 +85,7 @@ public abstract class CuentaBancaria
         }
         catch (MontoNoValidoException e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine("e.Message");
         }
         catch (CuentaNoActivaException e)
         {

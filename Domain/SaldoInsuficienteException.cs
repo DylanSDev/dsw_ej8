@@ -8,7 +8,7 @@ namespace Dsw2025Ej8.Domain
 {
     internal class SaldoInsuficienteException : Exception
     {
-        public SaldoInsuficienteException() : base($"La cuenta no posee saldo suficiente para la operación solicitada.")
+        public SaldoInsuficienteException() : base($" La cuenta no posee saldo suficiente para la operación solicitada.")
         {
         }
     }
