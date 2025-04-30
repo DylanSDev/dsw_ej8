@@ -19,64 +19,45 @@ public class CuentaBancaria
         _estado = Estado.Activa;
         _titulares = titulares;
     }
-    #region Getters/Setters
-    public string GetNumero()
+    #region Propiedades 
+  
+    public string Numero
     {
-        return _numero;
+        get { return _numero; }
     }
 
-    public decimal GetSaldo()
+    public decimal Saldo
     {
-        return _saldo;
-    }
-    public TipoCuenta GetTipo()
-    {
-        return _tipo;
+        get { return _saldo; }
     }
 
-    public Estado GetEstado()
+    public Estado Estado
     {
-        return _estado;
+        get { return _estado; }
+        set { _estado = value; }
     }
 
-    public void SetEstado(Estado estado)
+    public decimal TasaDeInteres
     {
-        _estado = estado;
+        get { return _tasaDeInteres; }
+        set { _tasaDeInteres = value;}
     }
 
-    public decimal GetTasaDeInteres()
+    public decimal LimiteDeDescubierto
     {
-        return _tasaDeInteres;
+        get { return _limiteDeDescubierto;}
+        set { _tasaDeInteres= value; }
     }
 
-    public void SetTasaDeInteres(decimal tasaDeInteres)
+    public decimal Comision
     {
-        _tasaDeInteres = tasaDeInteres;
+        get { return _comision; }
+        set { _comision = value; }
     }
 
-    public decimal GetLimiteDeDescubierto()
+    public string[] Titulares
     {
-        return _limiteDeDescubierto;
-    }
-
-    public void SetLimiteDeDescubierto(decimal limiteDeDescubierto)
-    {
-        _limiteDeDescubierto = limiteDeDescubierto;
-    }
-
-    public decimal GetComision()
-    {
-        return _comision;
-    }
-
-    public void SetComision(decimal comision)
-    {
-        _comision = comision;
-    }
-
-    public string[] GetTitulares()
-    {
-        return _titulares;
+        get { return _titulares; }
     }
     #endregion
 
