@@ -24,22 +24,50 @@ namespace Dsw2025Ej8.Domain
             get { return _limiteDeDescubierto; }
             set { _limiteDeDescubierto = value; }
         }
+
         public override void Depositar(decimal monto)
         {
-            monto -= monto * Comision;
-            Saldo += monto;
+            try
+            {
+                MontoValido(monto);
+                CuentaActiva();
+                monto -= monto * Comision;
+                Saldo += monto;
+            }
+            catch (MontoNoValidoException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (CuentaNoActivaException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public override void Retirar(decimal monto)
         {
-            if (Saldo - monto >= -_limiteDeDescubierto)
+            try
             {
-                Saldo -= monto;
+                MontoValido(monto);
+                CuentaActiva();
+                if (Saldo - monto >= -_limiteDeDescubierto)
+                {
+                    Saldo -= monto;
+                }
+                if (Saldo < 0)
+                {
+                    Estado = EstadoCuenta.Suspendida;
+                }
             }
-            if (Saldo < 0)
+            catch (MontoNoValidoException e)
             {
-                Estado = Estado.Suspendida;
+                Console.WriteLine(e.Message);
             }
+            catch (CuentaNoActivaException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
     }
 }

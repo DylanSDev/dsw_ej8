@@ -18,15 +18,6 @@ namespace Dsw2025Ej8.Domain
             get { return _tasaDeInteres; }
             set { _tasaDeInteres = value; }
         }
-        public override void Depositar(decimal monto)
-        {
-            base.Depositar(monto);
-        }
-
-        public override void Retirar(decimal monto) 
-        {  
-            base.Retirar(monto); 
-        }
 
         public void AplicarInteres()
         {
