@@ -38,10 +38,12 @@ namespace Dsw2025Ej8.Domain
             }
             catch (MontoNoValidoException e)
             {
+                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
                 Console.WriteLine(e.Message);
             }
             catch (CuentaNoActivaException e)
             {
+                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
                 Console.WriteLine(e.Message);
             }
         }

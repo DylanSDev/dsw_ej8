@@ -61,10 +61,12 @@ public abstract class CuentaBancaria
         }
         catch (MontoNoValidoException e)
         {
+            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
             Console.WriteLine(e.Message);
         }
         catch (CuentaNoActivaException e)
         {
+            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
             Console.WriteLine(e.Message);
         }
     }
@@ -85,14 +87,17 @@ public abstract class CuentaBancaria
         }
         catch (MontoNoValidoException e)
         {
-            Console.WriteLine("e.Message");
+            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
+            Console.WriteLine(e.Message);
         }
         catch (CuentaNoActivaException e)
         {
+            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
             Console.WriteLine(e.Message);
         }
         catch (SaldoInsuficienteException e)
         {
+            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
             Console.WriteLine(e.Message);
         }
     }

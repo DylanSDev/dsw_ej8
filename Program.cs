@@ -30,7 +30,7 @@ namespace Dsw2025Ej8
 
             //Operaciones con Caja de Ahorro 2
             cajaAhorro2.Depositar(100);
-            cajaAhorro2.Retirar(500);
+            cajaAhorro2.Retirar(0);
             cajaAhorro2.AplicarInteres();
 
             //Operaciones con Cuenta Corriente 1
@@ -41,6 +41,10 @@ namespace Dsw2025Ej8
             cuentaCorriente2.Depositar(2000);
             cuentaCorriente2.Retirar(2500);
 
+            Console.WriteLine("\n [-] Presiona Enter para continuar...");
+            Console.ReadLine();
+            Console.Clear();
+
             //Usamos clases anonimas para mostrar el resumen de cada cuenta
             var resumenCuentas = new[] {
                 new { CuentaNum = cajaAhorro1.Numero, Saldo = cajaAhorro1.Saldo, Titular = string.Join(", ", cajaAhorro1.Titulares), Estado = cajaAhorro1.Estado },
@@ -49,16 +53,25 @@ namespace Dsw2025Ej8
                 new { CuentaNum = cuentaCorriente2.Numero, Saldo = cuentaCorriente2.Saldo, Titular = string.Join(", ", cuentaCorriente2.Titulares), Estado = cuentaCorriente2.Estado }
             };
 
-            Console.WriteLine("\n RESUMEN DE CUENTAS \n");
-            Console.WriteLine("----------------------------------------------------------------------");
-            Console.WriteLine("| Número | Tipo             | Saldo    | Titulares            |       Estado       |");
-            Console.WriteLine("----------------------------------------------------------------------");
+            string titulo = "RESUMEN DE CUENTAS";
+            int anchoTotal = 83;
+            int espacioIzquierdo = (anchoTotal - titulo.Length) / 2;
+            Console.WriteLine("\n" + new string(' ', espacioIzquierdo) + titulo);
+            Console.WriteLine(new string('-', 83));
+            Console.WriteLine($"| {"Número",-10} | {"Tipo",-17} | {"Saldo",-10} | {"Titulares",-20} | {"Estado",-10} |");
+            Console.WriteLine(new string('-', 83));
+
             foreach (var cuenta in resumenCuentas)
             {
                 string tipo = cuenta.CuentaNum.StartsWith("CA") ? "Caja de Ahorro" : "Cuenta Corriente";
-                Console.WriteLine($"| {cuenta.CuentaNum} | {tipo,-15} | {cuenta.Saldo,8} | {cuenta.Titular,-20} | {cuenta.Estado,-15}");
+                Console.WriteLine($"| {cuenta.CuentaNum,-10} | {tipo,-17} | {cuenta.Saldo,10:C} | {cuenta.Titular,-20} | {cuenta.Estado,-10} |");
             }
-            Console.WriteLine("----------------------------------------------------------------------");
+
+            Console.WriteLine(new string('-', 83));
+
+            Console.WriteLine("\n [-] Presiona Enter para continuar...");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
