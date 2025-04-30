@@ -14,8 +14,9 @@ public abstract class CuentaBancaria
         _estado = EstadoCuenta.Activa;
         _titulares = titulares;
     }
-    #region Propiedades 
-  
+
+    #region Propiedades
+
     public string Numero
     {
         get { return _numero; }
@@ -37,16 +38,17 @@ public abstract class CuentaBancaria
     {
         get { return _titulares; }
     }
-    #endregion
 
-    public void MontoValido (decimal monto) 
+    #endregion Propiedades
+
+    public void MontoValido(decimal monto)
     {
         if (monto <= 0) { throw new MontoNoValidoException(); }
     }
 
-    public void CuentaActiva ()
+    public void CuentaActiva()
     {
-        if (Estado != EstadoCuenta.Activa) {  throw new CuentaNoActivaException(Estado); }
+        if (Estado != EstadoCuenta.Activa) { throw new CuentaNoActivaException(Estado); }
     }
 
     public virtual void Depositar(decimal monto)
@@ -73,16 +75,25 @@ public abstract class CuentaBancaria
         {
             MontoValido(monto);
             CuentaActiva();
-            _saldo -= monto;
+            if (monto > Saldo)
+            {
+                Estado = EstadoCuenta.Suspendida;
+                throw new SaldoInsuficienteException();
+            }
+            else
+                Saldo -= monto;
         }
         catch (MontoNoValidoException e)
         {
             Console.WriteLine(e.Message);
         }
-        catch  (CuentaNoActivaException e)
+        catch (CuentaNoActivaException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (SaldoInsuficienteException e)
         {
             Console.WriteLine(e.Message);
         }
     }
-        
 }
