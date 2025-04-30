@@ -10,6 +10,7 @@ namespace Dsw2025Ej8.Domain
     {
         private decimal _comision;
         private decimal _limiteDeDescubierto;
+
         public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo, titulares)
         {
         }
@@ -19,6 +20,7 @@ namespace Dsw2025Ej8.Domain
             get { return _comision; }
             set { _comision = value; }
         }
+
         public decimal LimiteDeDescubierto
         {
             get { return _limiteDeDescubierto; }
@@ -53,21 +55,30 @@ namespace Dsw2025Ej8.Domain
                 if (Saldo - monto >= -_limiteDeDescubierto)
                 {
                     Saldo -= monto;
+                    if (Saldo < 0)
+                        Estado = EstadoCuenta.Suspendida;
                 }
-                if (Saldo < 0)
+                else
                 {
                     Estado = EstadoCuenta.Suspendida;
+                    throw new SaldoInsuficienteException();
                 }
             }
             catch (MontoNoValidoException e)
             {
+                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
                 Console.WriteLine(e.Message);
             }
             catch (CuentaNoActivaException e)
             {
+                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
                 Console.WriteLine(e.Message);
             }
-
+            catch (SaldoInsuficienteException e)
+            {
+                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

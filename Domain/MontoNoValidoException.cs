@@ -8,6 +8,8 @@ namespace Dsw2025Ej8.Domain
 {
     internal class MontoNoValidoException : Exception
     {
-        public MontoNoValidoException() : base ("El monto ingresado no es válido para la operación solicitada.") { }
+        public MontoNoValidoException() : base(" El monto ingresado no es válido para la operación solicitada.")
+        {
+        }
     }
 }
