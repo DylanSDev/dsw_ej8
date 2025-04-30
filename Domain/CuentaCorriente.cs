@@ -30,10 +30,15 @@ namespace Dsw2025Ej8.Domain
             try
             {
                 MontoValido(monto);
+                CuentaActiva();
                 monto -= monto * Comision;
                 Saldo += monto;
             }
             catch (MontoNoValidoException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (CuentaNoActivaException e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -44,16 +49,21 @@ namespace Dsw2025Ej8.Domain
             try
             {
                 MontoValido(monto);
+                CuentaActiva();
                 if (Saldo - monto >= -_limiteDeDescubierto)
                 {
                     Saldo -= monto;
                 }
                 if (Saldo < 0)
                 {
-                    Estado = Estado.Suspendida;
+                    Estado = EstadoCuenta.Suspendida;
                 }
             }
             catch (MontoNoValidoException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (CuentaNoActivaException e)
             {
                 Console.WriteLine(e.Message);
             }

@@ -19,33 +19,6 @@ namespace Dsw2025Ej8.Domain
             set { _tasaDeInteres = value; }
         }
 
-        public override void Depositar(decimal monto)
-        {
-            try 
-            {
-                MontoValido(monto);
-                base.Depositar(monto);
-            }
-            catch(MontoNoValidoException e) 
-            {
-                Console.WriteLine(e.Message);
-            }
-            
-        }
-
-        public override void Retirar(decimal monto) 
-        {
-            try
-            {
-                MontoValido(monto);
-                base.Retirar(monto);
-            }
-            catch (MontoNoValidoException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
         public void AplicarInteres()
         {
             Saldo += Saldo * TasaDeInteres;
