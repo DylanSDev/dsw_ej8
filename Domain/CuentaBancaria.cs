@@ -39,14 +39,35 @@ public abstract class CuentaBancaria
     }
     #endregion
 
+    public void MontoValido (decimal monto) 
+    {
+        if (monto <= 0) { throw new MontoNoValidoException(); }
+    }
+
     public virtual void Depositar(decimal monto)
     {
-        _saldo += monto;
+        try
+        {
+            MontoValido(monto);
+            _saldo += monto;
+        }
+        catch (MontoNoValidoException e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
     public virtual void Retirar(decimal monto)
     {
+        try
+        {
+            MontoValido(monto);
             _saldo -= monto;
+        }
+        catch (MontoNoValidoException e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
         
 }
