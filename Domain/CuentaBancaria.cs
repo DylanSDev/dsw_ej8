@@ -1,4 +1,6 @@
-﻿namespace Dsw2025Ej8.Domain;
+﻿using static Dsw2025Ej8.Exceptions.ExceptionOperations;
+
+namespace Dsw2025Ej8.Domain;
 
 public abstract class CuentaBancaria
 {
@@ -27,28 +29,13 @@ public abstract class CuentaBancaria
 
     public virtual void Depositar(decimal monto)
     {
-        try
-        {
             MontoValido(monto);
             CuentaActiva();
-            Saldo += monto;
-        }
-        catch (MontoNoValidoException e)
-        {
-            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-            Console.WriteLine(e.Message);
-        }
-        catch (CuentaNoActivaException e)
-        {
-            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-            Console.WriteLine(e.Message);
-        }
+            _saldo += monto;
     }
 
     public virtual void Retirar(decimal monto)
-    {
-        try
-        {
+    {        
             MontoValido(monto);
             CuentaActiva();
             if (monto > Saldo)
@@ -58,21 +45,5 @@ public abstract class CuentaBancaria
             }
             else
                 Saldo -= monto;
-        }
-        catch (MontoNoValidoException e)
-        {
-            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-            Console.WriteLine(e.Message);
-        }
-        catch (CuentaNoActivaException e)
-        {
-            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-            Console.WriteLine(e.Message);
-        }
-        catch (SaldoInsuficienteException e)
-        {
-            Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-            Console.WriteLine(e.Message);
-        }
     }
 }
