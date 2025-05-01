@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Dsw2025Ej8.Exceptions.ExceptionOperations;
 
 namespace Dsw2025Ej8.Domain
 {
@@ -29,29 +30,14 @@ namespace Dsw2025Ej8.Domain
 
         public override void Depositar(decimal monto)
         {
-            try
-            {
                 MontoValido(monto);
                 CuentaActiva();
                 monto -= monto * Comision;
                 Saldo += monto;
-            }
-            catch (MontoNoValidoException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
-            catch (CuentaNoActivaException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
         }
 
         public override void Retirar(decimal monto)
         {
-            try
-            {
                 MontoValido(monto);
                 CuentaActiva();
                 if (Saldo - monto >= -_limiteDeDescubierto)
@@ -64,23 +50,7 @@ namespace Dsw2025Ej8.Domain
                 {
                     Estado = EstadoCuenta.Suspendida;
                     throw new SaldoInsuficienteException();
-                }
-            }
-            catch (MontoNoValidoException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
-            catch (CuentaNoActivaException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
-            catch (SaldoInsuficienteException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
+                }            
         }
     }
 }
