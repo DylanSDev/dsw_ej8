@@ -8,8 +8,6 @@ namespace Dsw2025Ej8.Domain
 {
     internal class CuentaNoActivaException : Exception
     {
-        public CuentaNoActivaException(EstadoCuenta estado) : base($" No se puede operar con la cuenta {estado}")
-        {
-        }
+        public CuentaNoActivaException(EstadoCuenta estado) : base($"No se puede operar con la cuenta {estado}.") { }
     }
 }

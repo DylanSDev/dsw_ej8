@@ -7,19 +7,17 @@ namespace Dsw2025Ej8
         private static void Main(string[] args)
         {
             // Creamos instancias de Caja de Ahorro y Cuenta Corriente
-            var cajaAhorro1 = new CajaDeAhorro("CA123", 1000, new string[] { "Juan Perez" });
-            cajaAhorro1.TasaDeInteres = 0.37m;
+            var cajaAhorro1 = new CajaDeAhorro("CA123", 1000, new string[] { "Juan Perez" }) 
+            { TasaDeInteres = 0.37m };
+        
+            var cajaAhorro2 = new CajaDeAhorro("CA124", 2000, new string[] { "Maria Lopez" }) 
+            { TasaDeInteres = 0.25m };
 
-            var cajaAhorro2 = new CajaDeAhorro("CA124", 2000, new string[] { "Maria Lopez" });
-            cajaAhorro2.TasaDeInteres = 0.25m;
+            var cuentaCorriente1 = new CuentaCorriente("CC123", 0, new string[] { "Carlos Garcia" })
+            { LimiteDeDescubierto = 200, Comision = 0.05m };
 
-            var cuentaCorriente1 = new CuentaCorriente("CC123", 0, new string[] { "Carlos Garcia" });
-            cuentaCorriente1.LimiteDeDescubierto = 200;
-            cuentaCorriente1.Comision = 0.05m;
-
-            var cuentaCorriente2 = new CuentaCorriente("CC124", 0, new string[] { "Ana Torres" });
-            cuentaCorriente2.LimiteDeDescubierto = 300;
-            cuentaCorriente2.Comision = 0.03m;
+            var cuentaCorriente2 = new CuentaCorriente("CC124", 0, new string[] { "Ana Torres" }) 
+            {LimiteDeDescubierto = 300, Comision = 0.03m };
 
             Console.WriteLine(" \n \t ¡Bienvenido! \n\n Estamos realizando las operaciones...");
 
@@ -64,7 +62,7 @@ namespace Dsw2025Ej8
             foreach (var cuenta in resumenCuentas)
             {
                 string tipo = cuenta.CuentaNum.StartsWith("CA") ? "Caja de Ahorro" : "Cuenta Corriente";
-                Console.WriteLine($"| {cuenta.CuentaNum,-10} | {tipo,-17} | {cuenta.Saldo,10:C} | {cuenta.Titular,-20} | {cuenta.Estado,-10} |");
+                Console.WriteLine($"| {cuenta.CuentaNum,-10} | {tipo,-17} | {cuenta.Saldo,10 : C} | {cuenta.Titular,-20} | {cuenta.Estado,-10} |");
             }
 
             Console.WriteLine(new string('-', 83));

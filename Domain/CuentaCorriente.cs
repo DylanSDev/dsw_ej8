@@ -8,24 +8,10 @@ namespace Dsw2025Ej8.Domain
 {
     internal class CuentaCorriente : CuentaBancaria
     {
-        private decimal _comision;
-        private decimal _limiteDeDescubierto;
+        public decimal Comision { get; init; }
+        public decimal LimiteDeDescubierto { get; init;}
 
-        public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo, titulares)
-        {
-        }
-
-        public decimal Comision
-        {
-            get { return _comision; }
-            set { _comision = value; }
-        }
-
-        public decimal LimiteDeDescubierto
-        {
-            get { return _limiteDeDescubierto; }
-            set { _limiteDeDescubierto = value; }
-        }
+        public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo, titulares) {}
 
         public override void Depositar(decimal monto)
         {
@@ -54,7 +40,7 @@ namespace Dsw2025Ej8.Domain
             {
                 MontoValido(monto);
                 CuentaActiva();
-                if (Saldo - monto >= -_limiteDeDescubierto)
+                if (Saldo - monto >= - LimiteDeDescubierto)
                 {
                     Saldo -= monto;
                     if (Saldo < 0)

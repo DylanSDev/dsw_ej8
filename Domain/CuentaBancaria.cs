@@ -2,44 +2,18 @@
 
 public abstract class CuentaBancaria
 {
-    private string _numero;
-    private decimal _saldo;
-    private EstadoCuenta _estado;
-    private string[] _titulares;
+    public string Numero { get; }
+    public decimal Saldo { get; protected set; }
+    public EstadoCuenta Estado {get;  protected set;}
+    public string[] Titulares {get; }
 
     public CuentaBancaria(string numero, decimal saldo, string[] titulares)
     {
-        _numero = numero;
-        _saldo = saldo;
-        _estado = EstadoCuenta.Activa;
-        _titulares = titulares;
+       Numero = numero;
+       Saldo = saldo;
+       Estado = EstadoCuenta.Activa;
+       Titulares = titulares;
     }
-
-    #region Propiedades
-
-    public string Numero
-    {
-        get { return _numero; }
-    }
-
-    public decimal Saldo
-    {
-        get { return _saldo; }
-        protected set { _saldo = value; }
-    }
-
-    public EstadoCuenta Estado
-    {
-        get { return _estado; }
-        set { _estado = value; }
-    }
-
-    public string[] Titulares
-    {
-        get { return _titulares; }
-    }
-
-    #endregion Propiedades
 
     public void MontoValido(decimal monto)
     {
@@ -57,7 +31,7 @@ public abstract class CuentaBancaria
         {
             MontoValido(monto);
             CuentaActiva();
-            _saldo += monto;
+            Saldo += monto;
         }
         catch (MontoNoValidoException e)
         {
