@@ -1,4 +1,4 @@
-﻿using static Dsw2025Ej8.Exceptions.ExceptionOperations;
+﻿using Dsw2025Ej8.Exceptions;
 
 namespace Dsw2025Ej8.Domain;
 
@@ -6,15 +6,15 @@ public abstract class CuentaBancaria
 {
     public string Numero { get; }
     public decimal Saldo { get; protected set; }
-    public EstadoCuenta Estado {get;  protected set;}
-    public string[] Titulares {get; }
+    public EstadoCuenta Estado { get; protected set; }
+    public string[] Titulares { get; }
 
     public CuentaBancaria(string numero, decimal saldo, string[] titulares)
     {
-       Numero = numero;
-       Saldo = saldo;
-       Estado = EstadoCuenta.Activa;
-       Titulares = titulares;
+        Numero = numero;
+        Saldo = saldo;
+        Estado = EstadoCuenta.Activa;
+        Titulares = titulares;
     }
 
     public void MontoValido(decimal monto)
@@ -29,21 +29,21 @@ public abstract class CuentaBancaria
 
     public virtual void Depositar(decimal monto)
     {
-            MontoValido(monto);
-            CuentaActiva();
-            _saldo += monto;
+        MontoValido(monto);
+        CuentaActiva();
+        Saldo += monto;
     }
 
     public virtual void Retirar(decimal monto)
-    {        
-            MontoValido(monto);
-            CuentaActiva();
-            if (monto > Saldo)
-            {
-                Estado = EstadoCuenta.Suspendida;
-                throw new SaldoInsuficienteException();
-            }
-            else
-                Saldo -= monto;
+    {
+        MontoValido(monto);
+        CuentaActiva();
+        if (monto > Saldo)
+        {
+            Estado = EstadoCuenta.Suspendida;
+            throw new SaldoInsuficienteException();
+        }
+        else
+            Saldo -= monto;
     }
 }

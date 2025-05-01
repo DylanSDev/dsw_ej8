@@ -7,19 +7,24 @@ using Dsw2025Ej8.Domain;
 
 namespace Dsw2025Ej8.Exceptions
 {
-    internal class ExceptionOperations : Exception
+    internal class MontoNoValidoException : Exception
     {
-        internal class MontoNoValidoException : Exception
+        public MontoNoValidoException() : base(" El monto ingresado no es válido para la operación solicitada.")
         {
-            public MontoNoValidoException() : base(" El monto ingresado no es válido para la operación solicitada."){}
         }
-        internal class CuentaNoActivaException : Exception
+    }
+
+    internal class CuentaNoActivaException : Exception
+    {
+        public CuentaNoActivaException(EstadoCuenta estado) : base($" No se puede operar con la cuenta {estado}")
         {
-            public CuentaNoActivaException(EstadoCuenta estado) : base($" No se puede operar con la cuenta {estado}"){}
         }
-        internal class SaldoInsuficienteException : Exception
+    }
+
+    internal class SaldoInsuficienteException : Exception
+    {
+        public SaldoInsuficienteException() : base($" La cuenta no posee saldo suficiente para la operación solicitada.")
         {
-            public SaldoInsuficienteException() : base($" La cuenta no posee saldo suficiente para la operación solicitada."){}
         }
     }
 }

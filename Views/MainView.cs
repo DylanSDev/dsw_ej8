@@ -5,30 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using Dsw2025Ej8.Domain;
 
-
 namespace Dsw2025Ej8.Views
 {
     internal class MainView
     {
-        public MainView() {}
+        public MainView()
+        { }
+
         public void Iniciar()
         {
-
-
             // Creamos instancias de Caja de Ahorro y Cuenta Corriente
-            var cajaAhorro1 = new CajaDeAhorro("CA123", 1000, new string[] { "Juan Perez" });
-            cajaAhorro1.TasaDeInteres = 0.37m;
 
-            var cajaAhorro2 = new CajaDeAhorro("CA124", 2000, new string[] { "Maria Lopez" });
-            cajaAhorro2.TasaDeInteres = 0.25m;
+            #region Instancias
 
-            var cuentaCorriente1 = new CuentaCorriente("CC123", 0, new string[] { "Carlos Garcia" });
-            cuentaCorriente1.LimiteDeDescubierto = 200;
-            cuentaCorriente1.Comision = 0.05m;
+            var cajaAhorro1 = new CajaDeAhorro("CA123", 1000, new string[] { "Juan Perez" })
+            {
+                TasaDeInteres = 0.37m
+            };
+            var cajaAhorro2 = new CajaDeAhorro("CA124", 2000, new string[] { "Maria Lopez" })
+            {
+                TasaDeInteres = 0.25m
+            };
+            var cuentaCorriente1 = new CuentaCorriente("CC123", 0, new string[] { "Carlos Garcia" })
+            {
+                LimiteDeDescubierto = 200,
+                Comision = 0.05m
+            };
+            var cuentaCorriente2 = new CuentaCorriente("CC124", 0, new string[] { "Ana Torres" })
+            {
+                LimiteDeDescubierto = 300,
+                Comision = 0.03m
+            };
 
-            var cuentaCorriente2 = new CuentaCorriente("CC124", 0, new string[] { "Ana Torres" });
-            cuentaCorriente2.LimiteDeDescubierto = 300;
-            cuentaCorriente2.Comision = 0.03m;
+            #endregion Instancias
 
             Console.WriteLine(" \n \t ¡Bienvenido! \n\n Estamos realizando las operaciones...");
 
