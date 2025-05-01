@@ -3,83 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dsw2025Ej8.Exceptions;
 
 namespace Dsw2025Ej8.Domain
 {
     internal class CuentaCorriente : CuentaBancaria
     {
-        private decimal _comision;
-        private decimal _limiteDeDescubierto;
+        public decimal Comision { get; init; }
+        public decimal LimiteDeDescubierto { get; init; }
 
         public CuentaCorriente(string numero, decimal saldo, string[] titulares) : base(numero, saldo, titulares)
         {
         }
 
-        public decimal Comision
-        {
-            get { return _comision; }
-            set { _comision = value; }
-        }
-
-        public decimal LimiteDeDescubierto
-        {
-            get { return _limiteDeDescubierto; }
-            set { _limiteDeDescubierto = value; }
-        }
-
         public override void Depositar(decimal monto)
         {
-            try
-            {
-                MontoValido(monto);
-                CuentaActiva();
-                monto -= monto * Comision;
-                Saldo += monto;
-            }
-            catch (MontoNoValidoException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
-            catch (CuentaNoActivaException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
+            MontoValido(monto);
+            CuentaActiva();
+            monto -= monto * Comision;
+            Saldo += monto;
         }
 
         public override void Retirar(decimal monto)
         {
-            try
+            MontoValido(monto);
+            CuentaActiva();
+            if (Saldo - monto >= -LimiteDeDescubierto)
             {
-                MontoValido(monto);
-                CuentaActiva();
-                if (Saldo - monto >= -_limiteDeDescubierto)
-                {
-                    Saldo -= monto;
-                    if (Saldo < 0)
-                        Estado = EstadoCuenta.Suspendida;
-                }
-                else
-                {
+                Saldo -= monto;
+                if (Saldo < 0)
                     Estado = EstadoCuenta.Suspendida;
-                    throw new SaldoInsuficienteException();
-                }
             }
-            catch (MontoNoValidoException e)
+            else
             {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
-            catch (CuentaNoActivaException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
-            }
-            catch (SaldoInsuficienteException e)
-            {
-                Console.WriteLine($"\n [!] Error - Cuenta: {Numero}");
-                Console.WriteLine(e.Message);
+                Estado = EstadoCuenta.Suspendida;
+                throw new SaldoInsuficienteException();
             }
         }
     }
