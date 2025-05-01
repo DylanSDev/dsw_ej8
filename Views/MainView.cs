@@ -42,22 +42,22 @@ namespace Dsw2025Ej8.Views
             Console.WriteLine(" \n \t ¡Bienvenido! \n\n Estamos realizando las operaciones...");
 
             // Operaciones con Caja de Ahorro 1
-            cajaAhorro1.Depositar(0);
-            cajaAhorro1.Retirar(250);
-            cajaAhorro1.AplicarInteres();
+            EjecutarConManejoError(() => cajaAhorro1.Depositar(1000), cajaAhorro1.Numero);
+            EjecutarConManejoError(() => cajaAhorro1.Retirar(0), cajaAhorro1.Numero);
+            EjecutarConManejoError(() => cajaAhorro1.AplicarInteres(), cajaAhorro1.Numero);
 
             //Operaciones con Caja de Ahorro 2
-            cajaAhorro2.Depositar(100);
-            cajaAhorro2.Retirar(0);
-            cajaAhorro2.AplicarInteres();
+            EjecutarConManejoError(() => cajaAhorro2.Depositar(0), cajaAhorro2.Numero);
+            EjecutarConManejoError(() => cajaAhorro2.Retirar(1500), cajaAhorro2.Numero);
+            EjecutarConManejoError(() => cajaAhorro2.AplicarInteres(), cajaAhorro2.Numero);
 
             //Operaciones con Cuenta Corriente 1
-            cuentaCorriente1.Depositar(1000);
-            cuentaCorriente1.Retirar(1100);
+            EjecutarConManejoError(() => cuentaCorriente1.Depositar(1000), cuentaCorriente1.Numero);
+            EjecutarConManejoError(() => cuentaCorriente1.Retirar(1100), cuentaCorriente1.Numero);
 
             //Operaciones con Cuenta Corriente 2
-            cuentaCorriente2.Depositar(2000);
-            cuentaCorriente2.Retirar(2500);
+            EjecutarConManejoError(() => cuentaCorriente2.Depositar(2000), cuentaCorriente2.Numero);
+            EjecutarConManejoError(() => cuentaCorriente2.Retirar(2500), cuentaCorriente2.Numero);
 
             Console.WriteLine("\n [-] Presiona Enter para continuar...");
             Console.ReadLine();
@@ -90,6 +90,20 @@ namespace Dsw2025Ej8.Views
             Console.WriteLine("\n [-] Presiona Enter para continuar...");
             Console.ReadLine();
             Console.Clear();
+        }
+
+        public void EjecutarConManejoError(Action accion, string numero)
+        {
+            try
+            {
+                accion();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\n [-] Error en la cuenta {numero}");
+
+                Console.WriteLine($" [-] Error: {ex.Message}");
+            }
         }
     }
 }
